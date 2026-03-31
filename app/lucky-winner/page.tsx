@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function LuckyWinnerPage() {
   const [mounted, setMounted] = useState(false);
@@ -13,113 +14,227 @@ export default function LuckyWinnerPage() {
 
   if (!mounted) return null;
 
+  const styles = {
+    container: {
+      minHeight: "100-screen",
+      backgroundColor: "#020202",
+      color: "white",
+      fontFamily: "Inter, sans-serif",
+      position: "relative",
+      overflow: "hidden",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "24px",
+    },
+    backgroundGlow1: {
+      position: "fixed",
+      top: "0",
+      left: "25%",
+      width: "500px",
+      height: "500px",
+      backgroundColor: "rgba(147, 51, 234, 0.1)",
+      borderRadius: "50%",
+      filter: "blur(120px)",
+      zIndex: 0,
+    },
+    backgroundGlow2: {
+      position: "fixed",
+      bottom: "0",
+      right: "25%",
+      width: "600px",
+      height: "600px",
+      backgroundColor: "rgba(37, 99, 235, 0.1)",
+      borderRadius: "50%",
+      filter: "blur(150px)",
+      zIndex: 0,
+    },
+    card: {
+      position: "relative",
+      zIndex: 10,
+      width: "100%",
+      maxWidth: "600px",
+      backgroundColor: "rgba(255, 255, 255, 0.03)",
+      backdropFilter: "blur(40px)",
+      WebkitBackdropFilter: "blur(40px)",
+      border: "1px solid rgba(255, 255, 255, 0.1)",
+      borderRadius: "32px",
+      padding: "56px 48px",
+      textAlign: "center",
+      boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
+    },
+    badge: {
+      display: "inline-block",
+      marginBottom: "32px",
+      padding: "6px 16px",
+      borderRadius: "100px",
+      backgroundColor: "rgba(255, 255, 255, 0.05)",
+      border: "1px solid rgba(255, 255, 255, 0.1)",
+      fontSize: "10px",
+      fontWeight: "bold",
+      letterSpacing: "0.2em",
+      textTransform: "uppercase",
+      color: "#a855f7",
+    },
+    imageContainer: {
+      position: "relative",
+      width: "180px",
+      height: "180px",
+      margin: "0 auto 40px",
+      padding: "6px",
+      background: "linear-gradient(135deg, rgba(168, 85, 247, 0.5), rgba(37, 99, 235, 0.5))",
+      borderRadius: "50%",
+    },
+    imageInner: {
+      width: "100%",
+      height: "100%",
+      borderRadius: "50%",
+      overflow: "hidden",
+      border: "4px solid #000",
+      position: "relative",
+    },
+    heading: {
+      fontSize: "48px",
+      fontWeight: "900",
+      marginBottom: "24px",
+      lineHeight: "1.1",
+      letterSpacing: "-0.04em",
+    },
+    subheading: {
+      fontSize: "18px",
+      color: "#9ca3af",
+      marginBottom: "40px",
+      fontWeight: "300",
+      lineHeight: "1.6",
+    },
+    jokeBox: {
+      padding: "16px",
+      backgroundColor: "rgba(255, 255, 255, 0.05)",
+      borderRadius: "16px",
+      border: "1px dashed rgba(255, 255, 255, 0.1)",
+      marginBottom: "40px",
+      fontSize: "12px",
+      color: "#60a5fa",
+      fontStyle: "italic",
+    },
+    button: {
+      padding: "20px 40px",
+      backgroundColor: "white",
+      color: "black",
+      border: "none",
+      borderRadius: "16px",
+      fontSize: "14px",
+      fontWeight: "900",
+      letterSpacing: "0.1em",
+      cursor: "pointer",
+      transition: "transform 0.2s, box-shadow 0.2s",
+    },
+    revealHeading: {
+      fontSize: "56px",
+      fontWeight: "900",
+      background: "linear-gradient(to right, #fb923c, #f43f5e)",
+      WebkitBackgroundClip: "text",
+      WebkitTextFillColor: "transparent",
+      marginBottom: "16px",
+    },
+    videoPlaceholder: {
+      width: "100%",
+      aspectRatio: "16/9",
+      backgroundColor: "rgba(0, 0, 0, 0.6)",
+      borderRadius: "24px",
+      border: "1px solid rgba(255, 255, 255, 0.1)",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      color: "rgba(255, 255, 255, 0.2)",
+      marginBottom: "32px",
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#050505] flex items-center justify-center p-4 overflow-hidden relative">
-      {/* Background Glow */}
-      <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[120px] pointer-events-none transition-colors duration-1000 ${revealed ? 'bg-orange-600/20' : 'bg-blue-600/20'}`} />
-      <div className="absolute top-1/4 right-1/4 w-[300px] h-[300px] bg-indigo-600/10 rounded-full blur-[80px] pointer-events-none" />
+    <div style={styles.container as any}>
+      <div style={styles.backgroundGlow1} />
+      <div style={styles.backgroundGlow2} />
 
-      {/* Main Glass Card */}
-      <div className="relative z-10 w-full max-w-2xl bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl flex flex-col items-center text-center animate-in fade-in zoom-in duration-1000">
-        
+      <AnimatePresence mode="wait">
         {!revealed ? (
-          <>
-            {/* Badge */}
-            <div className="mb-6 px-4 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold tracking-widest uppercase">
-              Exclusive Invitation
-            </div>
-
-            {/* Profile Image */}
-            <div className="relative mb-8 group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-              <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-2xl overflow-hidden border border-white/20">
+          <motion.div
+            key="invitation"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.1 }}
+            style={styles.card as any}
+          >
+            <div style={styles.badge}>Golden Ticket • Exclusive Access</div>
+            
+            <div style={styles.imageContainer}>
+              <div style={styles.imageInner}>
                 <Image
                   src="/ahaan-panday.png"
                   alt="Ahaan Panday"
                   fill
-                  className="object-cover transition duration-500 group-hover:scale-105"
+                  style={{ objectFit: "cover" }}
                   priority
                 />
               </div>
             </div>
 
-            {/* Heading */}
-            <h1 className="text-4xl md:text-6xl font-black text-white mb-4 tracking-tight">
-              CONGRATULATIONS!
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
-                YOU ARE SELECTED.
-              </span>
+            <h1 style={styles.heading}>
+              YOU HAVE BEEN <br />
+              <span style={{ color: "#d1d5db", fontStyle: "italic" }}>CHOSEN.</span>
             </h1>
 
-            {/* Description */}
-            <p className="text-gray-400 text-lg md:text-xl mb-8 max-w-md leading-relaxed">
-              Based on your exceptional activity through social media, you have been handpicked for an exclusive 
-              <span className="text-white font-semibold"> Meet & Greet </span> 
-              session.
+            <p style={styles.subheading}>
+              Based on your social media activity, you've earned a private 
+              <span style={{ color: "white", fontWeight: "bold" }}> Meet & Greet </span> 
+              with Ahaan Panday.
             </p>
 
-            {/* The Joke */}
-            <div className="mb-10 px-6 py-4 bg-white/5 rounded-2xl border border-dashed border-white/10">
-              <p className="text-blue-300 font-medium italic">
-                "And yes... it's Ahaan, not Ananya. We know you know!" 😉
-              </p>
+            <div style={styles.jokeBox}>
+              YES, IT'S AHAAN (NOT ANANYA) 😉
             </div>
 
-            {/* CTA */}
-            <button 
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setRevealed(true)}
-              className="group relative px-8 py-4 bg-white text-black font-bold rounded-xl transition hover:scale-105 active:scale-95 shadow-lg overflow-hidden"
+              style={styles.button}
             >
-              <span className="relative z-10">CLAIM YOUR EXCLUSIVE PASS</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-100 to-white opacity-0 group-hover:opacity-100 transition-opacity" />
-            </button>
-          </>
+              CLAIM YOUR SPOT NOW
+            </motion.button>
+          </motion.div>
         ) : (
-          <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-            {/* Reveal Header */}
-            <h1 className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight">
-              JUST KIDDING! 
-              <span className="block text-orange-500">😂 PRANKED!</span>
-            </h1>
-
-            {/* Video Placeholder */}
-            <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/10 mb-8 bg-black/40 flex items-center justify-center">
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-500">
-                <svg className="w-16 h-16 mb-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M2 6a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0013 8v4a1 1 0 001.553.894l3-2a1 1 0 000-1.788l-3-2z" />
-                </svg>
-                <p className="text-sm font-mono uppercase tracking-widest">Video Placeholder</p>
-                <p className="text-xs mt-2 text-gray-600">Ahaan laughing video would go here</p>
-              </div>
-              {/* Optional: You could use a real placeholder video link here */}
-              {/* <video autoPlay loop muted className="w-full h-full object-cover">
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-laughing-man-in-front-of-a-white-wall-34246-large.mp4" type="video/mp4" />
-              </video> */}
-            </div>
-
-            <p className="text-gray-300 text-lg mb-8 max-w-sm mx-auto">
-              You've just been hit by the ultimate Ahaan Panday surprise! 
-              Keep scrolling, keep liking, and maybe next time it'll be real! 😉
+          <motion.div
+            key="reveal"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            style={styles.card as any}
+          >
+            <div style={{ fontSize: "64px", marginBottom: "24px" }}>😂</div>
+            <h2 style={styles.revealHeading}>OOPS! PRANKED!</h2>
+            <p style={{ color: "#9ca3af", marginBottom: "32px" }}>
+              Gotcha! No meet and greet today, but you're now part of the Ahaan Panday inner circle (kinda).
             </p>
 
-            <button 
+            <div style={styles.videoPlaceholder as any}>
+              <div style={{ fontSize: "10px", fontWeight: "bold", letterSpacing: "0.2em", textTransform: "uppercase" }}>
+                Video Placeholder
+              </div>
+              <div style={{ fontSize: "10px", marginTop: "8px", opacity: 0.5 }}>
+                Ahaan reacting to this prank
+              </div>
+            </div>
+
+            <button
               onClick={() => setRevealed(false)}
-              className="text-gray-500 hover:text-white transition-colors underline underline-offset-4 text-sm"
+              style={{ background: "none", border: "none", color: "#4b5563", textDecoration: "underline", cursor: "pointer", fontSize: "12px" }}
             >
-              Go back to selecting me
+              Try again for real?
             </button>
-          </div>
+          </motion.div>
         )}
-
-        {/* Footer info */}
-        <p className="mt-8 text-gray-500 text-xs uppercase tracking-widest">
-          Limited availability • Non-transferable
-        </p>
-      </div>
-
-      {/* Floating Elements (Visual Polish) */}
-      <div className="absolute bottom-10 left-10 w-24 h-24 border border-white/5 rounded-full animate-pulse" />
-      <div className="absolute top-20 right-20 w-16 h-16 border border-white/5 rotate-45 animate-bounce" />
+      </AnimatePresence>
     </div>
   );
 }
