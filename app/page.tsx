@@ -104,22 +104,26 @@ export default function Home() {
       {/* Background audio: loops globally unless stopped */}
       <audio ref={audioRef} src="/background.mp3" loop />
 
-      {/* Step 0: Landing Page (Premium Split Layout) */}
+      {/* Step 0: Landing Page (Premium Text-Only Layout) */}
       {step === 0 && (
-        <div style={{ position: 'relative', width: '100vw', minHeight: '100vh', display: 'flex', flexDirection: 'column', animation: 'inlineFadeIn 1s ease-out forwards', backgroundColor: '#000' }}>
+        <div style={{ position: 'relative', width: '100vw', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', animation: 'inlineFadeIn 1s ease-out forwards', backgroundColor: '#000', overflow: 'hidden' }}>
           
-          {/* Top section: Full width banner image */}
-          <div style={{ position: 'relative', width: '100%', flex: '1 1 55vh', minHeight: '40vh', overflow: 'hidden' }}>
-            <Image src="/ahaan-panday.png" alt="Ahaan Panday Banner" fill priority style={{ objectFit: 'cover', objectPosition: 'center 20%' }} />
-            
-            {/* Smooth dark gradient fade to blend the image perfectly into the dark content area below */}
-            <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '40%', background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%)' }} />
-          </div>
+          {/* Subtle background flair */}
+          <div style={{ position: 'absolute', top: '10%', right: '10%', width: 'clamp(200px, 50vw, 400px)', height: 'clamp(200px, 50vw, 400px)', backgroundColor: 'rgba(147, 51, 234, 0.1)', borderRadius: '50%', filter: 'blur(80px)', zIndex: 0 }} />
+          <div style={{ position: 'absolute', bottom: '10%', left: '10%', width: 'clamp(200px, 50vw, 400px)', height: 'clamp(200px, 50vw, 400px)', backgroundColor: 'rgba(37, 99, 235, 0.1)', borderRadius: '50%', filter: 'blur(80px)', zIndex: 0 }} />
 
-          {/* Bottom section: Text directly underneath without leaving massive weird gaps */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '1rem 1.5rem 3rem', flex: '0 0 auto', textAlign: 'center', zIndex: 10 }}>
-            <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', fontWeight: 900, marginBottom: '2rem', color: '#fff', textShadow: '0 4px 10px rgba(0,0,0,0.5)', letterSpacing: '-0.02em', textTransform: 'uppercase' }}>
-              Exclusive Fan Invitation
+          {/* Centered Invitation Content securely separated from everything */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', flex: '0 0 auto', textAlign: 'center', zIndex: 10 }}>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 5vw, 2.5rem)', fontWeight: 800, color: '#fcd34d', marginBottom: '1rem', textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
+              🎉 Congratulations, Tanushree!
+            </h2>
+            
+            <p style={{ fontSize: 'clamp(1.1rem, 3.5vw, 1.5rem)', color: '#e4e4e7', lineHeight: 1.5, marginBottom: '0.5rem', fontWeight: 300 }}>
+              You’re one of the selected fans invited to
+            </p>
+            
+            <h1 style={{ fontSize: 'clamp(2.5rem, 7vw, 4rem)', fontWeight: 900, marginBottom: '2.5rem', background: 'linear-gradient(to right, #a855f7, #3b82f6)', WebkitBackgroundClip: 'text', color: 'transparent', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+              meet Ahaan Panday
             </h1>
             
             <button
