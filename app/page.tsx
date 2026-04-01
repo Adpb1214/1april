@@ -113,13 +113,13 @@ export default function Home() {
             <Image src="/ahaan-panday.png" alt="Blurred Background" fill priority style={{ objectFit: 'cover', objectPosition: 'center', filter: 'blur(40px)', opacity: 0.5, transform: 'scale(1.2)' }} />
             
             {/* Actual contained image so it is perfectly visible without any cropping */}
-            <Image src="/ahaan-panday.png" alt="Ahaan Panday Banner" fill priority style={{ objectFit: 'contain', objectPosition: 'center' }} />
+            <Image src="/ahaan-panday.png" alt="Ahaan Panday Banner" fill priority style={{ objectFit: 'contain', objectPosition: 'center top' }} />
             
-            {/* Dark gradient overlay for text readability */}
-            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.1) 100%)' }} />
+            {/* Dark gradient overlay for text readability, mostly focused at the bottom */}
+            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.95) 100%)' }} />
           </div>
 
-          <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 1rem', textAlign: 'center', marginTop: '-30vh' }}>
+          <div style={{ position: 'absolute', bottom: '8vh', left: 0, width: '100%', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 1.5rem', textAlign: 'center', boxSizing: 'border-box' }}>
             <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', fontWeight: 900, marginBottom: '2rem', color: '#fff', textShadow: '0 4px 20px rgba(0,0,0,0.8)', letterSpacing: '-0.02em', textTransform: 'uppercase' }}>
               Exclusive Fan Invitation
             </h1>
