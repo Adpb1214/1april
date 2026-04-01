@@ -104,23 +104,21 @@ export default function Home() {
       {/* Background audio: loops globally unless stopped */}
       <audio ref={audioRef} src="/background.mp3" loop />
 
-      {/* Step 0: Landing Page (Full-screen premium banner) */}
+      {/* Step 0: Landing Page (Premium Split Layout) */}
       {step === 0 && (
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', animation: 'inlineFadeIn 1s ease-out forwards' }}>
+        <div style={{ position: 'relative', width: '100vw', minHeight: '100vh', display: 'flex', flexDirection: 'column', animation: 'inlineFadeIn 1s ease-out forwards', backgroundColor: '#000' }}>
           
-          <div style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 0, overflow: 'hidden' }}>
-            {/* Blurred background to fill empty space on vertical screens without looking ugly */}
-            <Image src="/ahaan-panday.png" alt="Blurred Background" fill priority style={{ objectFit: 'cover', objectPosition: 'center', filter: 'blur(40px)', opacity: 0.5, transform: 'scale(1.2)' }} />
+          {/* Top section: Full width banner image */}
+          <div style={{ position: 'relative', width: '100%', flex: '1 1 55vh', minHeight: '40vh', overflow: 'hidden' }}>
+            <Image src="/ahaan-panday.png" alt="Ahaan Panday Banner" fill priority style={{ objectFit: 'cover', objectPosition: 'center 20%' }} />
             
-            {/* Actual contained image so it is perfectly visible without any cropping */}
-            <Image src="/ahaan-panday.png" alt="Ahaan Panday Banner" fill priority style={{ objectFit: 'contain', objectPosition: 'center top' }} />
-            
-            {/* Dark gradient overlay for text readability, mostly focused at the bottom */}
-            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.95) 100%)' }} />
+            {/* Smooth dark gradient fade to blend the image perfectly into the dark content area below */}
+            <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '40%', background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%)' }} />
           </div>
 
-          <div style={{ position: 'absolute', bottom: '8vh', left: 0, width: '100%', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 1.5rem', textAlign: 'center', boxSizing: 'border-box' }}>
-            <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', fontWeight: 900, marginBottom: '2rem', color: '#fff', textShadow: '0 4px 20px rgba(0,0,0,0.8)', letterSpacing: '-0.02em', textTransform: 'uppercase' }}>
+          {/* Bottom section: Text directly underneath without leaving massive weird gaps */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '1rem 1.5rem 3rem', flex: '0 0 auto', textAlign: 'center', zIndex: 10 }}>
+            <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', fontWeight: 900, marginBottom: '2rem', color: '#fff', textShadow: '0 4px 10px rgba(0,0,0,0.5)', letterSpacing: '-0.02em', textTransform: 'uppercase' }}>
               Exclusive Fan Invitation
             </h1>
             
