@@ -9,6 +9,7 @@ export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [videoEnded, setVideoEnded] = useState(false);
+  const [videoLoading, setVideoLoading] = useState(true);
 
   // Hover states for buttons
   const [isBtnHovered, setIsBtnHovered] = useState(false);
@@ -65,8 +66,15 @@ export default function Home() {
       100% { opacity: 1; transform: translateY(0); }
     }
     @keyframes glowPulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+    @keyframes btnPulse {
       0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.2); }
       50% { box-shadow: 0 0 35px rgba(255,255,255,0.6); }
+    }
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
     }
     body {
       margin: 0;
@@ -100,10 +108,15 @@ export default function Home() {
       {step === 0 && (
         <div style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', animation: 'inlineFadeIn 1s ease-out forwards' }}>
           
-          <div style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 0 }}>
-            <Image src="/ahaan-panday.png" alt="Ahaan Panday Banner" fill priority style={{ objectFit: 'cover', objectPosition: 'center 20%' }} />
-            {/* Dark gradient overlay for text readability, faded bottom to show text under */}
-            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.05) 100%)' }} />
+          <div style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 0, overflow: 'hidden' }}>
+            {/* Blurred background to fill empty space on vertical screens without looking ugly */}
+            <Image src="/ahaan-panday.png" alt="Blurred Background" fill priority style={{ objectFit: 'cover', objectPosition: 'center', filter: 'blur(40px)', opacity: 0.5, transform: 'scale(1.2)' }} />
+            
+            {/* Actual contained image so it is perfectly visible without any cropping */}
+            <Image src="/ahaan-panday.png" alt="Ahaan Panday Banner" fill priority style={{ objectFit: 'contain', objectPosition: 'center' }} />
+            
+            {/* Dark gradient overlay for text readability */}
+            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.1) 100%)' }} />
           </div>
 
           <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 1rem', textAlign: 'center', marginTop: '-30vh' }}>
@@ -119,7 +132,7 @@ export default function Home() {
                 padding: 'clamp(0.8rem, 3vw, 1.2rem) clamp(2rem, 5vw, 3rem)', backgroundColor: isBtnHovered ? '#fff' : 'rgba(255,255,255,0.9)',
                 color: '#000', fontWeight: 'bold', fontSize: 'clamp(1rem, 2vw, 1.25rem)', borderRadius: '50px',
                 border: 'none', cursor: 'pointer', transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                animation: 'glowPulse 2s infinite', transform: isBtnHovered ? 'scale(1.05) translateY(-5px)' : 'scale(1)',
+                animation: 'btnPulse 2s infinite', transform: isBtnHovered ? 'scale(1.05) translateY(-5px)' : 'scale(1)',
                 boxShadow: '0 10px 20px rgba(0,0,0,0.5)'
               }}
             >
@@ -219,13 +232,27 @@ export default function Home() {
       {step === 2 && (
         <div style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', backgroundColor: '#000', zIndex: 50, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
           
+          {/* Beautiful Loader Element */}
+          {videoLoading && !videoEnded && (
+            <div style={{ position: 'absolute', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', zIndex: 60, animation: 'inlineFadeIn 0.5s ease-out' }}>
+              <div style={{ 
+                width: '60px', height: '60px', border: '4px solid rgba(255,255,255,0.1)', 
+                borderTopColor: '#c084fc', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '2rem' 
+              }} />
+              <p style={{ fontSize: 'clamp(1.2rem, 3vw, 1.8rem)', color: '#d4d4d8', animation: 'glowPulse 2s ease-in-out infinite', textAlign: 'center', letterSpacing: '0.05em' }}>
+                Preparing your exclusive experience...
+              </p>
+            </div>
+          )}
+
           {/* Show full screen video. Once it ends, completely hide this video element. */}
           {!videoEnded && (
             <video 
               ref={videoRef}
-              style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', objectFit: 'contain', backgroundColor: '#000' }}
+              style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', objectFit: 'contain', backgroundColor: '#000', opacity: videoLoading ? 0 : 1, transition: 'opacity 0.8s ease-out' }}
               controls={false}
               playsInline
+              onPlaying={() => setVideoLoading(false)}
               onEnded={handleVideoEnded}
             >
               <source src="/ahaan-video.mp4" type="video/mp4" />
@@ -248,7 +275,7 @@ export default function Home() {
               <p style={{ fontSize: 'clamp(1.2rem, 4vw, 2rem)', fontWeight: 300, color: '#a1a1aa', marginBottom: '2rem' }}>
                 for making you april-fool 🤡
               </p>
-              <p style={{ fontSize: 'clamp(1.1rem, 3.5vw, 1.8rem)', fontWeight: 500, color: '#eab308', opacity: 0.9, backgroundColor: 'rgba(234, 179, 8, 0.1)', padding: '1rem 2rem', borderRadius: '50px', border: '1px solid rgba(234, 179, 8, 0.3)', animation: 'glowPulse 3s infinite' }}>
+              <p style={{ fontSize: 'clamp(1.1rem, 3.5vw, 1.8rem)', fontWeight: 500, color: '#eab308', opacity: 0.9, backgroundColor: 'rgba(234, 179, 8, 0.1)', padding: '1rem 2rem', borderRadius: '50px', border: '1px solid rgba(234, 179, 8, 0.3)', animation: 'btnPulse 3s infinite' }}>
                 you're not meeting with ahaan now but you can meet me.. hehe 🤭
               </p>
             </div>
