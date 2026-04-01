@@ -100,14 +100,14 @@ export default function Home() {
       color: '#fafafa', fontFamily: 'system-ui, -apple-system, sans-serif', position: 'relative'
     }}>
       <style dangerouslySetInnerHTML={{ __html: animations }} />
-      
+
       {/* Background audio: loops globally unless stopped */}
       <audio ref={audioRef} src="/background.mp3" loop />
 
       {/* Step 0: Landing Page (Premium Text-Only Layout) */}
       {step === 0 && (
         <div style={{ position: 'relative', width: '100vw', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', animation: 'inlineFadeIn 1s ease-out forwards', backgroundColor: '#000', overflow: 'hidden' }}>
-          
+
           {/* Subtle background flair */}
           <div style={{ position: 'absolute', top: '10%', right: '10%', width: 'clamp(200px, 50vw, 400px)', height: 'clamp(200px, 50vw, 400px)', backgroundColor: 'rgba(147, 51, 234, 0.1)', borderRadius: '50%', filter: 'blur(80px)', zIndex: 0 }} />
           <div style={{ position: 'absolute', bottom: '10%', left: '10%', width: 'clamp(200px, 50vw, 400px)', height: 'clamp(200px, 50vw, 400px)', backgroundColor: 'rgba(37, 99, 235, 0.1)', borderRadius: '50%', filter: 'blur(80px)', zIndex: 0 }} />
@@ -117,15 +117,15 @@ export default function Home() {
             <h2 style={{ fontSize: 'clamp(1.8rem, 5vw, 2.5rem)', fontWeight: 800, color: '#fcd34d', marginBottom: '1rem', textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
               🎉 Congratulations, Tanushree!
             </h2>
-            
+
             <p style={{ fontSize: 'clamp(1.1rem, 3.5vw, 1.5rem)', color: '#e4e4e7', lineHeight: 1.5, marginBottom: '0.5rem', fontWeight: 300 }}>
               You’re one of the selected fans invited to
             </p>
-            
+
             <h1 style={{ fontSize: 'clamp(2.5rem, 7vw, 4rem)', fontWeight: 900, marginBottom: '2.5rem', background: 'linear-gradient(to right, #a855f7, #3b82f6)', WebkitBackgroundClip: 'text', color: 'transparent', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
-              meet Ahaan Panday
+              Meet Ahaan Panday
             </h1>
-            
+
             <button
               onClick={handleNextStep}
               onMouseEnter={() => setIsBtnHovered(true)}
@@ -155,10 +155,10 @@ export default function Home() {
             <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 800, marginBottom: 'clamp(1rem, 3vw, 2rem)', letterSpacing: '-0.02em' }}>Congratulations!</h2>
             <p style={{ fontSize: 'clamp(1.1rem, 3vw, 1.6rem)', color: '#e4e4e7', lineHeight: 1.6, marginBottom: 'clamp(2rem, 5vw, 3rem)', fontWeight: 300 }}>
               Based on your Instagram and Facebook activity you are choosen to be one of the{" "}
-              <span style={{ fontWeight: 'bold', color: '#c084fc' }}>25 lucky fan</span> to meet with{" "}
-              <span style={{ fontWeight: 'bold', color: '#60a5fa' }}>ahaan panday</span> on his tour of Kolkata in may 2026 proccede to fill your details.
+              <span style={{ fontWeight: 'bold', color: '#c084fc' }}>25 lucky fan</span> to Meet with{" "}
+              <span style={{ fontWeight: 'bold', color: '#60a5fa' }}>Ahaan Panday</span> on his tour of Kolkata in may 2026 proccede to fill your details.
             </p>
-            
+
             {!showForm ? (
               <button
                 onClick={handleProceed}
@@ -233,13 +233,13 @@ export default function Home() {
       {/* Step 2: Full screen video prank */}
       {step === 2 && (
         <div style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', backgroundColor: '#000', zIndex: 50, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-          
+
           {/* Beautiful Loader Element */}
           {videoLoading && !videoEnded && (
             <div style={{ position: 'absolute', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', zIndex: 60, animation: 'inlineFadeIn 0.5s ease-out' }}>
-              <div style={{ 
-                width: '60px', height: '60px', border: '4px solid rgba(255,255,255,0.1)', 
-                borderTopColor: '#c084fc', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '2rem' 
+              <div style={{
+                width: '60px', height: '60px', border: '4px solid rgba(255,255,255,0.1)',
+                borderTopColor: '#c084fc', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '2rem'
               }} />
               <p style={{ fontSize: 'clamp(1.2rem, 3vw, 1.8rem)', color: '#d4d4d8', animation: 'glowPulse 2s ease-in-out infinite', textAlign: 'center', letterSpacing: '0.05em' }}>
                 Preparing your exclusive experience...
@@ -249,7 +249,7 @@ export default function Home() {
 
           {/* Show full screen video. Once it ends, completely hide this video element. */}
           {!videoEnded && (
-            <video 
+            <video
               ref={videoRef}
               style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', objectFit: 'contain', backgroundColor: '#000', opacity: videoLoading ? 0 : 1, transition: 'opacity 0.8s ease-out' }}
               controls={false}
@@ -278,8 +278,26 @@ export default function Home() {
                 for making you april-fool 🤡
               </p>
               <p style={{ fontSize: 'clamp(1.1rem, 3.5vw, 1.8rem)', fontWeight: 500, color: '#eab308', opacity: 0.9, backgroundColor: 'rgba(234, 179, 8, 0.1)', padding: '1rem 2rem', borderRadius: '50px', border: '1px solid rgba(234, 179, 8, 0.3)', animation: 'btnPulse 3s infinite' }}>
-                you're not meeting with ahaan now but you can meet me.. hehe 🤭
+                you're not meeting with Ahaan now but you can Meet me.. hehe 🤭
               </p>
+              
+              <div style={{ 
+                marginTop: '1.5rem', 
+                backgroundColor: 'rgba(244, 114, 182, 0.08)', 
+                padding: '1.5rem 2rem', 
+                borderRadius: '24px', 
+                border: '1px solid rgba(244, 114, 182, 0.2)',
+                boxShadow: '0 10px 30px rgba(244, 114, 182, 0.05)',
+                maxWidth: '90%',
+                animation: 'inlineFadeIn 1.5s ease-out forwards'
+              }}>
+                <span style={{ display: 'block', fontSize: 'clamp(1.1rem, 3.5vw, 1.6rem)', fontWeight: 600, color: '#fbcfe8', marginBottom: '0.5rem', lineHeight: 1.5, textShadow: '0 2px 10px rgba(244,114,182,0.3)' }}>
+                  Oyee kabhi kabhi hass liya kar, teri glowing smile bohot precious hai aur tujhpe best suited hai... 🤭
+                </span>
+                <span style={{ display: 'block', fontSize: 'clamp(0.9rem, 2.5vw, 1.2rem)', color: '#a1a1aa', fontStyle: 'italic', opacity: 0.8, marginTop: '0.5rem' }}>
+                  (not sorry for the prank though 😜)
+                </span>
+              </div>
             </div>
           )}
         </div>
