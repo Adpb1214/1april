@@ -255,7 +255,7 @@ export default function Home() {
               onPlaying={() => setVideoLoading(false)}
               onEnded={handleVideoEnded}
             >
-              <source src="/ahaan-video.mp4" type="video/mp4" />
+              <source src="https://pub-1407f82391df4ab1951418d04be76914.r2.dev/uploads/419a7155-9c96-44c0-932e-0ccf771d9fb1.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           )}
